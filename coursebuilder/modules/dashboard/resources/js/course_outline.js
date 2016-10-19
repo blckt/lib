@@ -71,7 +71,9 @@ function getCourseOutlineData() {
         title: '',
         lessons: []});
     });
+  
   });
+  console.log(courseOrderData);
   return courseOrderData;
 }
 function onUpdate(event, ui) {

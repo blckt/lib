@@ -325,6 +325,7 @@ class DashboardHandler(
     def get(self):
         """Enforces rights to all GET operations."""
         action = self.request.get('action')
+        print("in get")
         if not action:
             self.default_action = self.default_action_for_current_permissions()
             action = self.default_action
@@ -361,6 +362,7 @@ class DashboardHandler(
     def post(self):
         """Enforces rights to all POST operations."""
         action = self.request.get('action')
+        print(action);
         self.action = action
         if not self.can_edit(action):
             self.redirect(self.app_context.get_slug())
@@ -438,7 +440,7 @@ class DashboardHandler(
             template_values['sections'] = []
         if not appengine_config.PRODUCTION_MODE:
             template_values['page_uuid'] = str(uuid.uuid1())
-
+            
         self.response.write(
             self.get_template('view.html').render(template_values))
 
@@ -462,13 +464,16 @@ class DashboardHandler(
 
     def get_action_url(self, action, key=None, extra_args=None, fragment=None):
         args = {'action': action}
+       
         if key:
             args['key'] = key
         if extra_args:
             args.update(extra_args)
         url = '/dashboard?%s' % urllib.urlencode(args)
+        
         if fragment:
             url += '#' + fragment
+           
         return self.canonicalize_url(url)
 
     def _render_roles_list(self):
@@ -608,7 +613,7 @@ def get_visible_courses():
             key=lambda course: course.get_title().lower()):
         with Namespace(app_context.namespace):
             if DashboardHandler.current_user_has_access(app_context):
-                result.append(app_context)
+                result.append(app_context)                
     return result
 
 

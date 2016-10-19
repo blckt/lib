@@ -767,6 +767,7 @@ class CourseHandler(ApplicationHandler):
             # check if student has any locale labels assigned
             if student is None:
                 student = self.get_student()
+                print(student);
             if student and student.is_enrolled and not student.is_transient:
                 student_label_ids = student.get_labels_of_type(
                     models.LabelDTO.LABEL_TYPE_LOCALE)

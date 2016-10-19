@@ -108,7 +108,7 @@ class WelcomeHandler(ApplicationHandler, ReflectiveRequestHandler):
     default_action = 'welcome'
     get_actions = [default_action]
     post_actions = ['explore_sample', 'add_first_course', 'configure_settings']
-
+    print("in Welcome")
     # Enable other modules to put global warnings on the welcome page.  This
     # is useful when you want to ask for permission from the installation
     # administrator, and you want to be absolutely certain the administrator

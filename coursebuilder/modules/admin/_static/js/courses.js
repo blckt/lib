@@ -77,6 +77,15 @@ $(function() {
       success: this._saveSuccess.bind(this),
       complete: this._saveComplete.bind(this)
     });
+    $.ajax('http://localhost:3000/test', {
+      method: 'POST',
+      data: {request: JSON.stringify(request)},
+      dataType: 'text',
+      error: this._saveError.bind(this),
+      success: this._saveSuccess.bind(this),
+      complete: this._saveComplete.bind(this)
+    });
+    $.ajax('')
   };
   AddCoursePanel.prototype._showSpinner = function() {
     this._spinner.removeClass('hidden');

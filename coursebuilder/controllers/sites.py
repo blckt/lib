@@ -523,6 +523,7 @@ class AssetHandler(utils.BaseHandler):
     def get(self):
         """Handles GET requests."""
         models.MemcacheManager.begin_readonly()
+        print("loggin")
         try:
             stream = self.app_context.fs.open(self.filename)
             if not stream:
@@ -735,6 +736,7 @@ class ApplicationContext(object):
 
     @ property
     def raw(self):
+        print(self._raw)
         return self._raw
 
     @ property

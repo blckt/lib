@@ -95,7 +95,7 @@ def register_module():
     courses_routes += unit_lesson_editor.get_namespaced_handlers()
     courses_routes += student_labels.get_namespaced_handlers()
     courses_routes += lessons.get_namespaced_handlers()
-
+    print(courses_routes)
     global custom_module  # pylint: disable=global-statement
     custom_module = custom_modules.Module(
         constants.MODULE_NAME,

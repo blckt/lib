@@ -232,14 +232,14 @@ class CoursesItemRESTHandler(utils.BaseRESTHandler):
     def put(self):
         """Handles HTTP PUT verb."""
         request = transforms.loads(self.request.get('request'))
-        if not self.assert_xsrf_token_or_fail(
-                request, self.XSRF_ACTION, {}):
-            return
+        # if not self.assert_xsrf_token_or_fail(
+        #         request, self.XSRF_ACTION, {}):
+        #     return
 
-        if not CoursesPropertyRights.can_add():
-            self._send_json_error_response(401, 'Access denied.')
-            return
-
+        # if not CoursesPropertyRights.can_add():
+        #     self._send_json_error_response(401, 'Access denied.')
+        #     return
+        
         payload = request.get('payload')
         json_object = transforms.loads(payload)
         name = json_object.get('name')
@@ -247,8 +247,11 @@ class CoursesItemRESTHandler(utils.BaseRESTHandler):
         title = json_object.get('title')
         admin_email = json_object.get('admin_email')
         template_course = json_object.get('template_course')
-
+        print(admin_email)
+        print(template_course)
+        print(title)
         errors = []
+        print(payload) 
         with common_utils.Namespace(namespace):
             if CourseDeleteHandler.get_any_undeleted_kind_name():
                 errors.append(
@@ -258,8 +261,7 @@ class CoursesItemRESTHandler(utils.BaseRESTHandler):
                     'background cleanup job may still be running.  '
                     'You can use the App Engine Dashboard to manually '
                     'remove all database entities from this namespace.' %
-                    (name, namespace))
-
+                    (name, namespace))                  
         # Add the new course entry.
         if not errors:
             entry = sites.add_new_course_entry(name, title, admin_email, errors)
@@ -434,10 +436,10 @@ class ConfigPropertyItemRESTHandler(utils.BaseRESTHandler):
     def get(self):
         """Handles REST GET verb and returns an object as JSON payload."""
         key = self.request.get('key')
-        if not ConfigPropertyRights.can_view():
-            transforms.send_json_response(
-                self, 401, 'Access denied.', {'key': key})
-            return
+        # if not ConfigPropertyRights.can_view():
+        #     transforms.send_json_response(
+        #         self, 401, 'Access denied.', {'key': key})
+        #     return
 
         item = None
         if key and key in config.Registry.registered.keys():
